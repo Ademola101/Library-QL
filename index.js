@@ -93,12 +93,39 @@ let books = [
 ]
 
 const typeDefs = gql`
+
+  type Author {
+    name: String!
+    id: ID!
+    born: Int!
+
+
+  }
+
+  type Book {
+    title: String!
+    published: Int!
+    author: String!
+    id: ID!
+    genre: [String!]
+  }
+
+
+
   type Query {
+
+    authorCount:Int!
+    bookCount:Int!
+
+
   }
 `
 
 const resolvers = {
   Query: {
+
+    authorCount: () => authors.length,
+    bookCount: () => books.length
   }
 }
 
@@ -109,4 +136,4 @@ const server = new ApolloServer({
 
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
-})
+});
